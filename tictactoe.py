@@ -218,6 +218,7 @@ def computerTurn():
                     bottomRightL = "O"
                     went = True
                     moves += 1
+    drawGrid()
     checkForWinCondition()
     
 def drawGrid():
@@ -266,7 +267,7 @@ def restart():
     bottomMiddleL = ""
     bottomRightL = ""
     
-    wins = 0
+    moves = 0
     titleScreen()
 
 def playerWin():
@@ -290,6 +291,24 @@ def playerWin():
 def computerWin():
     time.sleep(1)
     print("Computer Wins")
+
+    while moves > 0:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                quit()
+        
+            gameDisplay.fill(white)
+            drawText("You lost!", displayWidth//2, displayHeight//4, 64, black)
+            middleButtonXPos = displayWidth//2 - 50
+            drawButton(middleButtonXPos, displayHeight - 200, 100, 50, black, white, 20, "Play Again", restart)
+            drawButton(middleButtonXPos, displayHeight - 100, 100, 50, black, white, 20, "Quit", exit)
+
+            pygame.display.update()
+            
+def tie():
+    time.sleep(1)
+    print("It was a tie!")
 
     while moves > 0:
         for event in pygame.event.get():
@@ -361,6 +380,9 @@ def checkForWinCondition():
         
     if topRightL == "O" and middleMiddleL == "O" and bottomLeftL == "O":
         computerWin()
+        
+    if moves == 9:
+        tie()
 
 def gridScreen():
     running = True
