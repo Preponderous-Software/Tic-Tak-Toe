@@ -41,15 +41,11 @@ class TicTacToe:
     def drawGridSlot(self, xpos, ypos, XorO, function):
         self.graphik.drawButton(xpos, ypos, 100, 100, self.white, self.black, 64, XorO, function)
 
-    def test(self):
-        print("test")
-
     def exit(self):
         pygame.quit()
         quit()
 
     def topLeft(self):
-        print(self.topLeftL)
         if self.topLeftL == "":
             self.topLeftL = "X"
             self.drawGrid()
@@ -57,7 +53,6 @@ class TicTacToe:
             self.computerTurn()
 
     def topMiddle(self):
-        print(self.topMiddleL)
         if self.topMiddleL == "":
             self.topMiddleL = "X"
             self.drawGrid()
@@ -65,7 +60,6 @@ class TicTacToe:
             self.computerTurn()
 
     def topRight(self):
-        print(self.topRightL)
         if self.topRightL == "":
             self.topRightL = "X"
             self.drawGrid()
@@ -73,7 +67,6 @@ class TicTacToe:
             self.computerTurn()
 
     def middleLeft(self):
-        print(self.middleLeftL)
         if self.middleLeftL == "":
             self.middleLeftL = "X"
             self.drawGrid()
@@ -81,7 +74,6 @@ class TicTacToe:
             self.computerTurn()
 
     def middleMiddle(self):
-        print(self.middleMiddleL)
         if self.middleMiddleL == "":
             self.middleMiddleL = "X"
             self.drawGrid()
@@ -89,7 +81,6 @@ class TicTacToe:
             self.computerTurn()
 
     def middleRight(self):
-        print(self.middleRightL)
         if self.middleRightL == "":
             self.middleRightL = "X"
             self.drawGrid()
@@ -97,7 +88,6 @@ class TicTacToe:
             self.computerTurn()
 
     def bottomLeft(self):
-        print(self.bottomLeftL)
         if self.bottomLeftL == "":
             self.bottomLeftL = "X"
             self.drawGrid()
@@ -105,7 +95,6 @@ class TicTacToe:
             self.computerTurn()    
 
     def bottomMiddle(self):
-        print(self.bottomMiddleL)
         if self.bottomMiddleL == "":
             self.bottomMiddleL = "X"
             self.drawGrid()
@@ -113,7 +102,6 @@ class TicTacToe:
             self.computerTurn()  
 
     def bottomRight(self):
-        print(self.bottomRightL)
         if self.bottomRightL == "":
             self.bottomRightL = "X"
             self.drawGrid()
@@ -215,7 +203,6 @@ class TicTacToe:
 
     def playerWin(self):
         time.sleep(1)
-        print("Player Wins")
 
         while self.moves > 0:
             for event in pygame.event.get():
@@ -233,7 +220,6 @@ class TicTacToe:
         
     def computerWin(self):
         time.sleep(1)
-        print("Computer Wins")
 
         while self.moves > 0:
             for event in pygame.event.get():
@@ -251,7 +237,6 @@ class TicTacToe:
                 
     def tie(self):
         time.sleep(1)
-        print("It was a tie!")
 
         while self.moves > 0:
             for event in pygame.event.get():
