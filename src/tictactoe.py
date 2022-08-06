@@ -1,397 +1,361 @@
 import pygame
 import time
 import random
-from Graphik import *
+from graphik import Graphik
 
-pygame.init()
 
-black = (0,0,0)
-white = (255,255,255)
+#  @author Daniel McCoy Stephenson
+#  @since August 6th, 2022
+class TicTacToe:
+    def __init__(self):
+        pygame.init()
 
-displayWidth = 800
-displayHeight = 600
+        self.black = (0,0,0)
+        self.white = (255,255,255)
 
-gameDisplay = pygame.display.set_mode((displayWidth, displayHeight))
+        self.displayWidth = 800
+        self.displayHeight = 600
 
-graphik = Graphik(gameDisplay)
+        self.gameDisplay = pygame.display.set_mode((self.displayWidth, self.displayHeight))
 
-pygame.display.set_caption("Tic Tac Toe")
+        self.graphik = Graphik(self.gameDisplay)
 
-clock = pygame.time.Clock()
+        pygame.display.set_caption("Tic Tac Toe")
 
-topLeftL = ""
-topMiddleL = ""
-topRightL = ""
+        self.clock = pygame.time.Clock()
 
-middleLeftL = ""
-middleMiddleL = ""
-middleRightL = ""
+        self.topLeftL = ""
+        self.topMiddleL = ""
+        self.topRightL = ""
 
-bottomLeftL = ""
-bottomMiddleL = ""
-bottomRightL = ""
+        self.middleLeftL = ""
+        self.middleMiddleL = ""
+        self.middleRightL = ""
 
-moves = 0
+        self.bottomLeftL = ""
+        self.bottomMiddleL = ""
+        self.bottomRightL = ""
 
-def drawGridSlot(xpos, ypos, XorO, function):
-    graphik.drawButton(xpos, ypos, 100, 100, white, black, 64, XorO, function)
+        self.moves = 0
 
-def test():
-    print("test")
+    def drawGridSlot(self, xpos, ypos, XorO, function):
+        self.graphik.drawButton(xpos, ypos, 100, 100, self.white, self.black, 64, XorO, function)
 
-def exit():
-    pygame.quit()
-    quit()
+    def test(self):
+        print("test")
 
-def topLeft():
-    global topLeftL
-    global moves
-    print(topLeftL)
-    if topLeftL == "":
-        topLeftL = "X"
-        drawGrid()
-        moves += 1
-        computerTurn()
+    def exit(self):
+        pygame.quit()
+        quit()
 
-def topMiddle():
-    global topMiddleL
-    global moves
-    print(topMiddleL)
-    if topMiddleL == "":
-        topMiddleL = "X"
-        drawGrid()
-        moves += 1
-        computerTurn()
+    def topLeft(self):
+        print(self.topLeftL)
+        if self.topLeftL == "":
+            self.topLeftL = "X"
+            self.drawGrid()
+            self.moves += 1
+            self.computerTurn()
 
-def topRight():
-    global topRightL
-    global moves
-    print(topRightL)
-    if topRightL == "":
-        topRightL = "X"
-        drawGrid()
-        moves += 1
-        computerTurn()
+    def topMiddle(self):
+        print(self.topMiddleL)
+        if self.topMiddleL == "":
+            self.topMiddleL = "X"
+            self.drawGrid()
+            self.moves += 1
+            self.computerTurn()
 
-def middleLeft():
-    global middleLeftL
-    global moves
-    print(middleLeftL)
-    if middleLeftL == "":
-        middleLeftL = "X"
-        drawGrid()
-        moves += 1
-        computerTurn()
+    def topRight(self):
+        print(self.topRightL)
+        if self.topRightL == "":
+            self.topRightL = "X"
+            self.drawGrid()
+            self.moves += 1
+            self.computerTurn()
 
-def middleMiddle():
-    global middleMiddleL
-    global moves
-    print(middleMiddleL)
-    if middleMiddleL == "":
-        middleMiddleL = "X"
-        drawGrid()
-        moves += 1
-        computerTurn()
+    def middleLeft(self):
+        print(self.middleLeftL)
+        if self.middleLeftL == "":
+            self.middleLeftL = "X"
+            self.drawGrid()
+            self.moves += 1
+            self.computerTurn()
 
-def middleRight():
-    global middleRightL
-    global moves
-    print(middleRightL)
-    if middleRightL == "":
-        middleRightL = "X"
-        drawGrid()
-        moves += 1
-        computerTurn()
+    def middleMiddle(self):
+        print(self.middleMiddleL)
+        if self.middleMiddleL == "":
+            self.middleMiddleL = "X"
+            self.drawGrid()
+            self.moves += 1
+            self.computerTurn()
 
-def bottomLeft():
-    global bottomLeftL
-    global moves
-    print(bottomLeftL)
-    if bottomLeftL == "":
-        bottomLeftL = "X"
-        drawGrid()
-        moves += 1
-        computerTurn()    
+    def middleRight(self):
+        print(self.middleRightL)
+        if self.middleRightL == "":
+            self.middleRightL = "X"
+            self.drawGrid()
+            self.moves += 1
+            self.computerTurn()
 
-def bottomMiddle():
-    global bottomMiddleL
-    global moves
-    print(bottomMiddleL)
-    if bottomMiddleL == "":
-        bottomMiddleL = "X"
-        drawGrid()
-        moves += 1
-        computerTurn()  
+    def bottomLeft(self):
+        print(self.bottomLeftL)
+        if self.bottomLeftL == "":
+            self.bottomLeftL = "X"
+            self.drawGrid()
+            self.moves += 1
+            self.computerTurn()    
 
-def bottomRight():
-    global bottomRightL
-    global moves
-    print(bottomRightL)
-    if bottomRightL == "":
-        bottomRightL = "X"
-        drawGrid()
-        moves += 1
-        computerTurn()  
+    def bottomMiddle(self):
+        print(self.bottomMiddleL)
+        if self.bottomMiddleL == "":
+            self.bottomMiddleL = "X"
+            self.drawGrid()
+            self.moves += 1
+            self.computerTurn()  
 
-def computerTurn():
-    checkForWinCondition()
-    global topLeftL
-    global topMiddleL
-    global topRightL
-    global middleLeftL
-    global middleMiddleL
-    global middleRightL
-    global bottomLeftL
-    global bottomMiddleL
-    global bottomRightL
-    global moves
-    
-    if moves != 9:
+    def bottomRight(self):
+        print(self.bottomRightL)
+        if self.bottomRightL == "":
+            self.bottomRightL = "X"
+            self.drawGrid()
+            self.moves += 1
+            self.computerTurn()  
+
+    def computerTurn(self):
+        self.checkForWinCondition()
+        
+        if self.moves != 9:
+            time.sleep(1)
+
+            went = False
+            while (went == False):
+                randomInt = random.randint(1,10)
+                if randomInt == 1:
+                    if self.topLeftL == "":
+                        self.topLeftL = "O"
+                        went = True
+                        self.moves += 1
+                if randomInt == 2:
+                    if self.topMiddleL == "":
+                        self.topMiddleL = "O"
+                        went = True
+                        self.moves += 1
+                if randomInt == 3:
+                    if self.topRightL == "":
+                        self.topRightL = "O"
+                        went = True
+                        self.moves += 1
+                if randomInt == 4:
+                    if self.middleLeftL == "":
+                        self.middleLeftL = "O"
+                        went = True
+                        self.moves += 1
+                if randomInt == 5:
+                    if self.middleMiddleL == "":
+                        self.middleMiddleL = "O"
+                        went = True
+                        self.moves += 1
+                if randomInt == 6:
+                    if self.middleRightL == "":
+                        self.middleRightL = "O"
+                        went = True
+                        self.moves += 1
+                if randomInt == 7:
+                    if self.bottomLeftL == "":
+                        self.bottomLeftL = "O"
+                        went = True
+                        self.moves += 1
+                if randomInt == 8:
+                    if self.bottomMiddleL == "":
+                        self.bottomMiddleL = "O"
+                        went = True
+                        self.moves += 1
+                if randomInt == 9:
+                    if self.bottomRightL == "":
+                        self.bottomRightL = "O"
+                        went = True
+                        self.moves += 1
+        self.drawGrid()
+        self.checkForWinCondition()
+        
+    def drawGrid(self):
+        centerGridX = (self.displayWidth//2 - 50)
+        centerGridY = (self.displayHeight//2 - 50)
+        
+        self.graphik.drawRectangle(centerGridX - 125, centerGridY - 125, 350, 350, self.black)
+        
+        self.drawGridSlot(centerGridX - 125, centerGridY - 125, self.topLeftL, self.topLeft) # top row left column
+        self.drawGridSlot(centerGridX, centerGridY - 125, self.topMiddleL, self.topMiddle) # top row middle column
+        self.drawGridSlot(centerGridX + 125, centerGridY - 125, self.topRightL, self.topRight) # top row right column
+        
+        self.drawGridSlot(centerGridX - 125, centerGridY, self.middleLeftL, self.middleLeft) # middle row left column
+        self.drawGridSlot(centerGridX, centerGridY, self.middleMiddleL, self.middleMiddle) # middle row middle column
+        self.drawGridSlot(centerGridX + 125, centerGridY, self.middleRightL, self.middleRight) # middle row right column
+
+        self.drawGridSlot(centerGridX - 125, centerGridY + 125, self.bottomLeftL, self.bottomLeft) # top row left column
+        self.drawGridSlot(centerGridX, centerGridY + 125, self.bottomMiddleL, self.bottomMiddle) # top row middle column
+        self.drawGridSlot(centerGridX + 125, centerGridY + 125, self.bottomRightL, self.bottomRight) # top row right column
+        
+        pygame.display.update()
+
+    def restart(self):
+        self.topLeftL = ""
+        self.topMiddleL = ""
+        self.topRightL = ""
+
+        self.middleLeftL = ""
+        self.middleMiddleL = ""
+        self.middleRightL = ""
+
+        self.bottomLeftL = ""
+        self.bottomMiddleL = ""
+        self.bottomRightL = ""
+        
+        self.moves = 0
+        self.titleScreen()
+
+    def playerWin(self):
         time.sleep(1)
+        print("Player Wins")
 
-        went = False
-        while (went == False):
-            randomInt = random.randint(1,10)
-            if randomInt == 1:
-                if topLeftL == "":
-                    topLeftL = "O"
-                    went = True
-                    moves += 1
-            if randomInt == 2:
-                if topMiddleL == "":
-                    topMiddleL = "O"
-                    went = True
-                    moves += 1
-            if randomInt == 3:
-                if topRightL == "":
-                    topRightL = "O"
-                    went = True
-                    moves += 1
-            if randomInt == 4:
-                if middleLeftL == "":
-                    middleLeftL = "O"
-                    went = True
-                    moves += 1
-            if randomInt == 5:
-                if middleMiddleL == "":
-                    middleMiddleL = "O"
-                    went = True
-                    moves += 1
-            if randomInt == 6:
-                if middleRightL == "":
-                    middleRightL = "O"
-                    went = True
-                    moves += 1
-            if randomInt == 7:
-                if bottomLeftL == "":
-                    bottomLeftL = "O"
-                    went = True
-                    moves += 1
-            if randomInt == 8:
-                if bottomMiddleL == "":
-                    bottomMiddleL = "O"
-                    went = True
-                    moves += 1
-            if randomInt == 9:
-                if bottomRightL == "":
-                    bottomRightL = "O"
-                    went = True
-                    moves += 1
-    drawGrid()
-    checkForWinCondition()
-    
-def drawGrid():
-    centerGridX = (displayWidth//2 - 50)
-    centerGridY = (displayHeight//2 - 50)
-    
-    graphik.drawRectangle(centerGridX - 125, centerGridY - 125, 350, 350, black)
-    
-    drawGridSlot(centerGridX - 125, centerGridY - 125, topLeftL, topLeft) # top row left column
-    drawGridSlot(centerGridX, centerGridY - 125, topMiddleL, topMiddle) # top row middle column
-    drawGridSlot(centerGridX + 125, centerGridY - 125, topRightL, topRight) # top row right column
-    
-    drawGridSlot(centerGridX - 125, centerGridY, middleLeftL, middleLeft) # middle row left column
-    drawGridSlot(centerGridX, centerGridY, middleMiddleL, middleMiddle) # middle row middle column
-    drawGridSlot(centerGridX + 125, centerGridY, middleRightL, middleRight) # middle row right column
-
-    drawGridSlot(centerGridX - 125, centerGridY + 125, bottomLeftL, bottomLeft) # top row left column
-    drawGridSlot(centerGridX, centerGridY + 125, bottomMiddleL, bottomMiddle) # top row middle column
-    drawGridSlot(centerGridX + 125, centerGridY + 125, bottomRightL, bottomRight) # top row right column
-    
-#    if moves == 9:
-#        graphik.drawButton(displayWidth//2 - 50, displayHeight - 100, 100, 50, black, white, 20, "Quit", exit)
-    
-    pygame.display.update()
-
-def restart():
-    global topLeftL
-    global topMiddleL
-    global topRightL
-    global middleLeftL
-    global middleMiddleL
-    global middleRightL
-    global bottomLeftL
-    global bottomMiddleL
-    global bottomRightL
-    global moves
-    topLeftL = ""
-    topMiddleL = ""
-    topRightL = ""
-
-    middleLeftL = ""
-    middleMiddleL = ""
-    middleRightL = ""
-
-    bottomLeftL = ""
-    bottomMiddleL = ""
-    bottomRightL = ""
-    
-    moves = 0
-    titleScreen()
-
-def playerWin():
-    time.sleep(1)
-    print("Player Wins")
-
-    while moves > 0:
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                pygame.quit()
-                quit()
-        
-            gameDisplay.fill(white)
-            graphik.drawText("You won!", displayWidth//2, displayHeight//4, 64, black)
-            middleButtonXPos = displayWidth//2 - 50
-            graphik.drawButton(middleButtonXPos, displayHeight - 200, 100, 50, black, white, 16, "Play Again", restart)
-            graphik.drawButton(middleButtonXPos, displayHeight - 100, 100, 50, black, white, 16, "Quit", exit)
-
-            pygame.display.update()
-    
-def computerWin():
-    time.sleep(1)
-    print("Computer Wins")
-
-    while moves > 0:
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                pygame.quit()
-                quit()
-        
-            gameDisplay.fill(white)
-            graphik.drawText("You lost!", displayWidth//2, displayHeight//4, 64, black)
-            middleButtonXPos = displayWidth//2 - 50
-            graphik.drawButton(middleButtonXPos, displayHeight - 200, 100, 50, black, white, 20, "Play Again", restart)
-            graphik.drawButton(middleButtonXPos, displayHeight - 100, 100, 50, black, white, 20, "Quit", exit)
-
-            pygame.display.update()
+        while self.moves > 0:
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    pygame.quit()
+                    quit()
             
-def tie():
-    time.sleep(1)
-    print("It was a tie!")
+                self.gameDisplay.fill(self.white)
+                self.graphik.drawText("You won!", self.displayWidth//2, self.displayHeight//4, 64, self.black)
+                middleButtonXPos = self.displayWidth//2 - 50
+                self.graphik.drawButton(middleButtonXPos, self.displayHeight - 200, 100, 50, self.black, self.white, 16, "Play Again", self.restart)
+                self.graphik.drawButton(middleButtonXPos, self.displayHeight - 100, 100, 50, self.black, self.white, 16, "Quit", exit)
 
-    while moves > 0:
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                pygame.quit()
-                quit()
+                pygame.display.update()
         
-            gameDisplay.fill(white)
-            graphik.drawText("You lost!", displayWidth//2, displayHeight//4, 64, black)
-            middleButtonXPos = displayWidth//2 - 50
-            graphik.drawButton(middleButtonXPos, displayHeight - 200, 100, 50, black, white, 20, "Play Again", restart)
-            graphik.drawButton(middleButtonXPos, displayHeight - 100, 100, 50, black, white, 20, "Quit", exit)
+    def computerWin(self):
+        time.sleep(1)
+        print("Computer Wins")
 
-            pygame.display.update()
+        while self.moves > 0:
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    pygame.quit()
+                    quit()
+            
+                self.gameDisplay.fill(self.white)
+                self.graphik.drawText("You lost!", self.displayWidth//2, self.displayHeight//4, 64, self.black)
+                middleButtonXPos = self.displayWidth//2 - 50
+                self.graphik.drawButton(middleButtonXPos, self.displayHeight - 200, 100, 50, self.black, self.white, 20, "Play Again", self.restart)
+                self.graphik.drawButton(middleButtonXPos, self.displayHeight - 100, 100, 50, self.black, self.white, 20, "Quit", exit)
 
-def checkForWinCondition():
-    # case top row
-    if topLeftL == "X" and topMiddleL == "X" and topRightL == "X":
-        playerWin()
-        
-    if topLeftL == "O" and topMiddleL == "O" and topRightL == "O":
-        computerWin()
-    
-    # case middle row
-    if middleLeftL == "X" and middleMiddleL == "X" and middleRightL == "X":
-        playerWin()
-        
-    if middleLeftL == "O" and middleMiddleL == "O" and middleRightL == "O":
-        computerWin()
-    
-    # case bottom row
-    if bottomLeftL == "X" and bottomMiddleL == "X" and bottomRightL == "X":
-        playerWin()
-        
-    if bottomLeftL == "O" and bottomMiddleL == "O" and bottomRightL == "O":
-        computerWin()
-    
-    # case left column
-    if topLeftL == "X" and middleLeftL == "X" and bottomLeftL == "X":
-        playerWin()
-        
-    if topLeftL == "O" and middleLeftL == "O" and bottomLeftL == "O":
-        computerWin()
-    
-    # case middle column
-    if topMiddleL == "X" and middleMiddleL == "X" and bottomMiddleL == "X":
-        playerWin()
-        
-    if topMiddleL == "O" and middleMiddleL == "O" and bottomMiddleL == "O":
-        computerWin()
-    
-    # case right column
-    if topRightL == "X" and middleRightL == "X" and bottomRightL == "X":
-        playerWin()
-        
-    if topRightL == "O" and middleRightL == "O" and bottomRightL == "O":
-        computerWin()
-    
-    # case diagonal ->
-    if topLeftL == "X" and middleMiddleL == "X" and bottomRightL == "X":
-        playerWin()
-        
-    if topLeftL == "O" and middleMiddleL == "O" and bottomRightL == "O":
-        computerWin()
-        
-    # case diagonal <-
-    if topRightL == "X" and middleMiddleL == "X" and bottomLeftL == "X":
-        playerWin()
-        
-    if topRightL == "O" and middleMiddleL == "O" and bottomLeftL == "O":
-        computerWin()
-        
-    if moves == 9:
-        tie()
-
-def gridScreen():
-    running = True
-
-    while running:
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                pygame.quit()
-                quit()
+                pygame.display.update()
                 
-            gameDisplay.fill(white)
+    def tie(self):
+        time.sleep(1)
+        print("It was a tie!")
+
+        while self.moves > 0:
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    pygame.quit()
+                    quit()
             
-            drawGrid()
+                self.gameDisplay.fill(self.white)
+                self.graphik.drawText("You lost!", self.displayWidth//2, self.displayHeight//4, 64, self.black)
+                middleButtonXPos = self.displayWidth//2 - 50
+                self.graphik.drawButton(middleButtonXPos, self.displayHeight - 200, 100, 50, self.black, self.white, 20, "Play Again", self.restart)
+                self.graphik.drawButton(middleButtonXPos, self.displayHeight - 100, 100, 50, self.black, self.white, 20, "Quit", exit)
 
-def titleScreen():
-    running = True
+                pygame.display.update()
 
-    while running:
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                pygame.quit()
-                quit()
+    def checkForWinCondition(self):
+        # case top row
+        if self.topLeftL == "X" and self.topMiddleL == "X" and self.topRightL == "X":
+            self.playerWin()
+            
+        if self.topLeftL == "O" and self.topMiddleL == "O" and self.topRightL == "O":
+            self.computerWin()
         
-            gameDisplay.fill(white)
-            graphik.drawText("Tic Tac Toe", displayWidth//2, displayHeight//4, 64, black)
-            middleButtonXPos = displayWidth//2 - 50
-            graphik.drawButton(middleButtonXPos, displayHeight - 300, 100, 50, black, white, 20, "Start", gridScreen)
-#            graphik.drawButton(middleButtonXPos, displayHeight - 200, 100, 50, black, white, 20, "Stats", test)
-            graphik.drawButton(middleButtonXPos, displayHeight - 100, 100, 50, black, white, 20, "Quit", exit)
+        # case middle row
+        if self.middleLeftL == "X" and self.middleMiddleL == "X" and self.middleRightL == "X":
+            self.playerWin()
+            
+        if self.middleLeftL == "O" and self.middleMiddleL == "O" and self.middleRightL == "O":
+            self.computerWin()
+        
+        # case bottom row
+        if self.bottomLeftL == "X" and self.bottomMiddleL == "X" and self.bottomRightL == "X":
+            self.playerWin()
+            
+        if self.bottomLeftL == "O" and self.bottomMiddleL == "O" and self.bottomRightL == "O":
+            self.computerWin()
+        
+        # case left column
+        if self.topLeftL == "X" and self.middleLeftL == "X" and self.bottomLeftL == "X":
+            self.playerWin()
+            
+        if self.topLeftL == "O" and self.middleLeftL == "O" and self.bottomLeftL == "O":
+            self.computerWin()
+        
+        # case middle column
+        if self.topMiddleL == "X" and self.middleMiddleL == "X" and self.bottomMiddleL == "X":
+            self.playerWin()
+            
+        if self.topMiddleL == "O" and self.middleMiddleL == "O" and self.bottomMiddleL == "O":
+            self.computerWin()
+        
+        # case right column
+        if self.topRightL == "X" and self.middleRightL == "X" and self.bottomRightL == "X":
+            self.playerWin()
+            
+        if self.topRightL == "O" and self.middleRightL == "O" and self.bottomRightL == "O":
+            self.computerWin()
+        
+        # case diagonal ->
+        if self.topLeftL == "X" and self.middleMiddleL == "X" and self.bottomRightL == "X":
+            self.playerWin()
+            
+        if self.topLeftL == "O" and self.middleMiddleL == "O" and self.bottomRightL == "O":
+            self.computerWin()
+            
+        # case diagonal <-
+        if self.topRightL == "X" and self.middleMiddleL == "X" and self.bottomLeftL == "X":
+            self.playerWin()
+            
+        if self.topRightL == "O" and self.middleMiddleL == "O" and self.bottomLeftL == "O":
+            self.computerWin()
+            
+        if self.moves == 9:
+            self.tie()
 
-            pygame.display.update()
+    def gridScreen(self):
+        running = True
 
-titleScreen()
+        while running:
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    pygame.quit()
+                    quit()
+                    
+                self.gameDisplay.fill(self.white)
+                
+                self.drawGrid()
+
+    def titleScreen(self):
+        running = True
+
+        while running:
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    pygame.quit()
+                    quit()
+            
+                self.gameDisplay.fill(self.white)
+                self.graphik.drawText("Tic Tac Toe", self.displayWidth//2, self.displayHeight//4, 64, self.black)
+                middleButtonXPos = self.displayWidth//2 - 50
+                self.graphik.drawButton(middleButtonXPos, self.displayHeight - 300, 100, 50, self.black, self.white, 20, "Start", self.gridScreen)
+                self.graphik.drawButton(middleButtonXPos, self.displayHeight - 100, 100, 50, self.black, self.white, 20, "Quit", exit)
+
+                pygame.display.update()
+
+ticTacToe = TicTacToe()
+ticTacToe.titleScreen()
